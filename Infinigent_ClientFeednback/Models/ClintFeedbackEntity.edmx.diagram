@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bf617fbba781432aa579ee000fe9c58d" Name="Diagram1">
+        <EntityTypeShape EntityType="qt_Infinigent_FeedbackModel.ad_Client_Type" Width="1.5" PointX="1.5" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="qt_Infinigent_FeedbackModel.ad_Rating" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="qt_Infinigent_FeedbackModel.ad_User" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="qt_Infinigent_FeedbackModel.bpo_Client_Feedback" Width="2" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="qt_Infinigent_FeedbackModel.bpo_Client_Question_Rating_Settings" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qt_Infinigent_FeedbackModel.bpo_Client_Questionaires" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="qt_Infinigent_FeedbackModel.cff_Client_Feedback" Width="1.5" PointX="5.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="qt_Infinigent_FeedbackModel.cff_Client_Question_Rating_Settings" Width="1.5" PointX="6" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="qt_Infinigent_FeedbackModel.cff_Client_Questionnaires" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="qt_Infinigent_FeedbackModel.Client_Question_Others" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qt_Infinigent_FeedbackModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="qt_Infinigent_FeedbackModel.FK_ad_User_ad_Client_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="qt_Infinigent_FeedbackModel.FK_bpo_Client_Feedback_ad_Rating" ManuallyRouted="false" />
+        <AssociationConnector Association="qt_Infinigent_FeedbackModel.FK_bpo_Client_Question_Rating_Settings_ad_Rating" ManuallyRouted="false" />
+        <AssociationConnector Association="qt_Infinigent_FeedbackModel.FK_cff_Client_Question_Rating_Settings_ad_Rating" ManuallyRouted="false" />
+        <AssociationConnector Association="qt_Infinigent_FeedbackModel.FK_bpo_Client_Feedback_ad_User" ManuallyRouted="false" />
+        <AssociationConnector Association="qt_Infinigent_FeedbackModel.FK_bpo_Client_Feedback_bpo_Client_Questionaires" ManuallyRouted="false" />
+        <AssociationConnector Association="qt_Infinigent_FeedbackModel.FK_bpo_Client_Question_Rating_Settings_bpo_Client_Questionaires" ManuallyRouted="false" />
+        <AssociationConnector Association="qt_Infinigent_FeedbackModel.FK_Client_Question_Others_bpo_Client_Questionaires" ManuallyRouted="false" />
+        <AssociationConnector Association="qt_Infinigent_FeedbackModel.FK_cff_Client_Question_Rating_Settings_cff_Client_Questionnaires" ManuallyRouted="false" />
+        <AssociationConnector Association="qt_Infinigent_FeedbackModel.FK_Client_Question_Others_cff_Client_Questionnaires" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

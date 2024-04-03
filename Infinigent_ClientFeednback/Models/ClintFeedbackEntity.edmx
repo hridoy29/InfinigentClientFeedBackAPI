@@ -1,0 +1,770 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="qt_Infinigent_FeedbackModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ad_Client_Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ClientType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Creator" Type="varchar" MaxLength="10" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ad_Rating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rating_Point" Type="int" Nullable="false" />
+          <Property Name="Rating_Value" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ad_User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Client_Type_Id" Type="int" Nullable="false" />
+          <Property Name="Creator" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="bpo_Client_Feedback">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="ResponseRatingId" Type="int" Nullable="false" />
+          <Property Name="Creator" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="bpo_Client_Question_Rating_Settings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Client_Question_Id" Type="int" Nullable="false" />
+          <Property Name="RatingId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Rank" Type="int" />
+        </EntityType>
+        <EntityType Name="bpo_Client_Questionaires">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Question" Type="varchar(max)" />
+          <Property Name="Creator" Type="varchar" MaxLength="10" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="Rank" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsOthers" Type="bit" />
+        </EntityType>
+        <EntityType Name="cff_Client_Feedback">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="ResponseRatingId" Type="int" Nullable="false" />
+          <Property Name="Creator" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="cff_Client_Question_Rating_Settings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Client_Question_Id" Type="int" Nullable="false" />
+          <Property Name="RatingId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="cff_Client_Questionnaires">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Question" Type="varchar" MaxLength="512" />
+          <Property Name="Creator" Type="varchar" MaxLength="512" />
+          <Property Name="Rank" Type="int" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsOthers" Type="bit" />
+        </EntityType>
+        <EntityType Name="Client_Question_Others">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Client_Question_Id" Type="int" Nullable="false" />
+          <Property Name="RatingId" Type="int" Nullable="false" />
+          <Property Name="Others" Type="varchar(max)" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_ad_User_ad_Client_Type">
+          <End Role="ad_Client_Type" Type="Self.ad_Client_Type" Multiplicity="1" />
+          <End Role="ad_User" Type="Self.ad_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ad_Client_Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ad_User">
+              <PropertyRef Name="Client_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bpo_Client_Feedback_ad_Rating">
+          <End Role="ad_Rating" Type="Self.ad_Rating" Multiplicity="1" />
+          <End Role="bpo_Client_Feedback" Type="Self.bpo_Client_Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ad_Rating">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bpo_Client_Feedback">
+              <PropertyRef Name="ResponseRatingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bpo_Client_Feedback_ad_User">
+          <End Role="ad_User" Type="Self.ad_User" Multiplicity="1" />
+          <End Role="bpo_Client_Feedback" Type="Self.bpo_Client_Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ad_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="bpo_Client_Feedback">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bpo_Client_Feedback_bpo_Client_Questionaires">
+          <End Role="bpo_Client_Questionaires" Type="Self.bpo_Client_Questionaires" Multiplicity="1" />
+          <End Role="bpo_Client_Feedback" Type="Self.bpo_Client_Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bpo_Client_Questionaires">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bpo_Client_Feedback">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bpo_Client_Question_Rating_Settings_ad_Rating">
+          <End Role="ad_Rating" Type="Self.ad_Rating" Multiplicity="1" />
+          <End Role="bpo_Client_Question_Rating_Settings" Type="Self.bpo_Client_Question_Rating_Settings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ad_Rating">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bpo_Client_Question_Rating_Settings">
+              <PropertyRef Name="RatingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bpo_Client_Question_Rating_Settings_bpo_Client_Questionaires">
+          <End Role="bpo_Client_Questionaires" Type="Self.bpo_Client_Questionaires" Multiplicity="1" />
+          <End Role="bpo_Client_Question_Rating_Settings" Type="Self.bpo_Client_Question_Rating_Settings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bpo_Client_Questionaires">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bpo_Client_Question_Rating_Settings">
+              <PropertyRef Name="Client_Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cff_Client_Question_Rating_Settings_ad_Rating">
+          <End Role="ad_Rating" Type="Self.ad_Rating" Multiplicity="1" />
+          <End Role="cff_Client_Question_Rating_Settings" Type="Self.cff_Client_Question_Rating_Settings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ad_Rating">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cff_Client_Question_Rating_Settings">
+              <PropertyRef Name="RatingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cff_Client_Question_Rating_Settings_cff_Client_Questionnaires">
+          <End Role="cff_Client_Questionnaires" Type="Self.cff_Client_Questionnaires" Multiplicity="1" />
+          <End Role="cff_Client_Question_Rating_Settings" Type="Self.cff_Client_Question_Rating_Settings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cff_Client_Questionnaires">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cff_Client_Question_Rating_Settings">
+              <PropertyRef Name="Client_Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Question_Others_bpo_Client_Questionaires">
+          <End Role="bpo_Client_Questionaires" Type="Self.bpo_Client_Questionaires" Multiplicity="1" />
+          <End Role="Client_Question_Others" Type="Self.Client_Question_Others" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bpo_Client_Questionaires">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_Question_Others">
+              <PropertyRef Name="Client_Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Question_Others_cff_Client_Questionnaires">
+          <End Role="cff_Client_Questionnaires" Type="Self.cff_Client_Questionnaires" Multiplicity="1" />
+          <End Role="Client_Question_Others" Type="Self.Client_Question_Others" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cff_Client_Questionnaires">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_Question_Others">
+              <PropertyRef Name="Client_Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="qt_Infinigent_FeedbackModelStoreContainer">
+          <EntitySet Name="ad_Client_Type" EntityType="Self.ad_Client_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ad_Rating" EntityType="Self.ad_Rating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ad_User" EntityType="Self.ad_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bpo_Client_Feedback" EntityType="Self.bpo_Client_Feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bpo_Client_Question_Rating_Settings" EntityType="Self.bpo_Client_Question_Rating_Settings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bpo_Client_Questionaires" EntityType="Self.bpo_Client_Questionaires" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cff_Client_Feedback" EntityType="Self.cff_Client_Feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cff_Client_Question_Rating_Settings" EntityType="Self.cff_Client_Question_Rating_Settings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cff_Client_Questionnaires" EntityType="Self.cff_Client_Questionnaires" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client_Question_Others" EntityType="Self.Client_Question_Others" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ad_User_ad_Client_Type" Association="Self.FK_ad_User_ad_Client_Type">
+            <End Role="ad_Client_Type" EntitySet="ad_Client_Type" />
+            <End Role="ad_User" EntitySet="ad_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bpo_Client_Feedback_ad_Rating" Association="Self.FK_bpo_Client_Feedback_ad_Rating">
+            <End Role="ad_Rating" EntitySet="ad_Rating" />
+            <End Role="bpo_Client_Feedback" EntitySet="bpo_Client_Feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bpo_Client_Feedback_ad_User" Association="Self.FK_bpo_Client_Feedback_ad_User">
+            <End Role="ad_User" EntitySet="ad_User" />
+            <End Role="bpo_Client_Feedback" EntitySet="bpo_Client_Feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bpo_Client_Feedback_bpo_Client_Questionaires" Association="Self.FK_bpo_Client_Feedback_bpo_Client_Questionaires">
+            <End Role="bpo_Client_Questionaires" EntitySet="bpo_Client_Questionaires" />
+            <End Role="bpo_Client_Feedback" EntitySet="bpo_Client_Feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bpo_Client_Question_Rating_Settings_ad_Rating" Association="Self.FK_bpo_Client_Question_Rating_Settings_ad_Rating">
+            <End Role="ad_Rating" EntitySet="ad_Rating" />
+            <End Role="bpo_Client_Question_Rating_Settings" EntitySet="bpo_Client_Question_Rating_Settings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bpo_Client_Question_Rating_Settings_bpo_Client_Questionaires" Association="Self.FK_bpo_Client_Question_Rating_Settings_bpo_Client_Questionaires">
+            <End Role="bpo_Client_Questionaires" EntitySet="bpo_Client_Questionaires" />
+            <End Role="bpo_Client_Question_Rating_Settings" EntitySet="bpo_Client_Question_Rating_Settings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cff_Client_Question_Rating_Settings_ad_Rating" Association="Self.FK_cff_Client_Question_Rating_Settings_ad_Rating">
+            <End Role="ad_Rating" EntitySet="ad_Rating" />
+            <End Role="cff_Client_Question_Rating_Settings" EntitySet="cff_Client_Question_Rating_Settings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cff_Client_Question_Rating_Settings_cff_Client_Questionnaires" Association="Self.FK_cff_Client_Question_Rating_Settings_cff_Client_Questionnaires">
+            <End Role="cff_Client_Questionnaires" EntitySet="cff_Client_Questionnaires" />
+            <End Role="cff_Client_Question_Rating_Settings" EntitySet="cff_Client_Question_Rating_Settings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Question_Others_bpo_Client_Questionaires" Association="Self.FK_Client_Question_Others_bpo_Client_Questionaires">
+            <End Role="bpo_Client_Questionaires" EntitySet="bpo_Client_Questionaires" />
+            <End Role="Client_Question_Others" EntitySet="Client_Question_Others" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Question_Others_cff_Client_Questionnaires" Association="Self.FK_Client_Question_Others_cff_Client_Questionnaires">
+            <End Role="cff_Client_Questionnaires" EntitySet="cff_Client_Questionnaires" />
+            <End Role="Client_Question_Others" EntitySet="Client_Question_Others" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="qt_Infinigent_FeedbackModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ad_Client_Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ClientType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Creator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="ad_User" Relationship="Self.FK_ad_User_ad_Client_Type" FromRole="ad_Client_Type" ToRole="ad_User" />
+        </EntityType>
+        <EntityType Name="ad_Rating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rating_Point" Type="Int32" Nullable="false" />
+          <Property Name="Rating_Value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="bpo_Client_Feedback" Relationship="Self.FK_bpo_Client_Feedback_ad_Rating" FromRole="ad_Rating" ToRole="bpo_Client_Feedback" />
+          <NavigationProperty Name="bpo_Client_Question_Rating_Settings" Relationship="Self.FK_bpo_Client_Question_Rating_Settings_ad_Rating" FromRole="ad_Rating" ToRole="bpo_Client_Question_Rating_Settings" />
+          <NavigationProperty Name="cff_Client_Question_Rating_Settings" Relationship="Self.FK_cff_Client_Question_Rating_Settings_ad_Rating" FromRole="ad_Rating" ToRole="cff_Client_Question_Rating_Settings" />
+        </EntityType>
+        <EntityType Name="ad_User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Client_Type_Id" Type="Int32" Nullable="false" />
+          <Property Name="Creator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="ad_Client_Type" Relationship="Self.FK_ad_User_ad_Client_Type" FromRole="ad_User" ToRole="ad_Client_Type" />
+          <NavigationProperty Name="bpo_Client_Feedback" Relationship="Self.FK_bpo_Client_Feedback_ad_User" FromRole="ad_User" ToRole="bpo_Client_Feedback" />
+        </EntityType>
+        <EntityType Name="bpo_Client_Feedback">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="ResponseRatingId" Type="Int32" Nullable="false" />
+          <Property Name="Creator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="ad_Rating" Relationship="Self.FK_bpo_Client_Feedback_ad_Rating" FromRole="bpo_Client_Feedback" ToRole="ad_Rating" />
+          <NavigationProperty Name="ad_User" Relationship="Self.FK_bpo_Client_Feedback_ad_User" FromRole="bpo_Client_Feedback" ToRole="ad_User" />
+          <NavigationProperty Name="bpo_Client_Questionaires" Relationship="Self.FK_bpo_Client_Feedback_bpo_Client_Questionaires" FromRole="bpo_Client_Feedback" ToRole="bpo_Client_Questionaires" />
+        </EntityType>
+        <EntityType Name="bpo_Client_Question_Rating_Settings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_Question_Id" Type="Int32" Nullable="false" />
+          <Property Name="RatingId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Rank" Type="Int32" />
+          <NavigationProperty Name="ad_Rating" Relationship="Self.FK_bpo_Client_Question_Rating_Settings_ad_Rating" FromRole="bpo_Client_Question_Rating_Settings" ToRole="ad_Rating" />
+          <NavigationProperty Name="bpo_Client_Questionaires" Relationship="Self.FK_bpo_Client_Question_Rating_Settings_bpo_Client_Questionaires" FromRole="bpo_Client_Question_Rating_Settings" ToRole="bpo_Client_Questionaires" />
+        </EntityType>
+        <EntityType Name="bpo_Client_Questionaires">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Creator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="Rank" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsOthers" Type="Boolean" />
+          <NavigationProperty Name="bpo_Client_Feedback" Relationship="Self.FK_bpo_Client_Feedback_bpo_Client_Questionaires" FromRole="bpo_Client_Questionaires" ToRole="bpo_Client_Feedback" />
+          <NavigationProperty Name="bpo_Client_Question_Rating_Settings" Relationship="Self.FK_bpo_Client_Question_Rating_Settings_bpo_Client_Questionaires" FromRole="bpo_Client_Questionaires" ToRole="bpo_Client_Question_Rating_Settings" />
+          <NavigationProperty Name="Client_Question_Others" Relationship="Self.FK_Client_Question_Others_bpo_Client_Questionaires" FromRole="bpo_Client_Questionaires" ToRole="Client_Question_Others" />
+        </EntityType>
+        <EntityType Name="cff_Client_Feedback">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="ResponseRatingId" Type="Int32" Nullable="false" />
+          <Property Name="Creator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="cff_Client_Question_Rating_Settings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_Question_Id" Type="Int32" Nullable="false" />
+          <Property Name="RatingId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="ad_Rating" Relationship="Self.FK_cff_Client_Question_Rating_Settings_ad_Rating" FromRole="cff_Client_Question_Rating_Settings" ToRole="ad_Rating" />
+          <NavigationProperty Name="cff_Client_Questionnaires" Relationship="Self.FK_cff_Client_Question_Rating_Settings_cff_Client_Questionnaires" FromRole="cff_Client_Question_Rating_Settings" ToRole="cff_Client_Questionnaires" />
+        </EntityType>
+        <EntityType Name="cff_Client_Questionnaires">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Question" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+          <Property Name="Creator" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+          <Property Name="Rank" Type="Int32" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsOthers" Type="Boolean" />
+          <NavigationProperty Name="cff_Client_Question_Rating_Settings" Relationship="Self.FK_cff_Client_Question_Rating_Settings_cff_Client_Questionnaires" FromRole="cff_Client_Questionnaires" ToRole="cff_Client_Question_Rating_Settings" />
+          <NavigationProperty Name="Client_Question_Others" Relationship="Self.FK_Client_Question_Others_cff_Client_Questionnaires" FromRole="cff_Client_Questionnaires" ToRole="Client_Question_Others" />
+        </EntityType>
+        <EntityType Name="Client_Question_Others">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_Question_Id" Type="Int32" Nullable="false" />
+          <Property Name="RatingId" Type="Int32" Nullable="false" />
+          <Property Name="Others" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="bpo_Client_Questionaires" Relationship="Self.FK_Client_Question_Others_bpo_Client_Questionaires" FromRole="Client_Question_Others" ToRole="bpo_Client_Questionaires" />
+          <NavigationProperty Name="cff_Client_Questionnaires" Relationship="Self.FK_Client_Question_Others_cff_Client_Questionnaires" FromRole="Client_Question_Others" ToRole="cff_Client_Questionnaires" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_ad_User_ad_Client_Type">
+          <End Role="ad_Client_Type" Type="Self.ad_Client_Type" Multiplicity="1" />
+          <End Role="ad_User" Type="Self.ad_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ad_Client_Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ad_User">
+              <PropertyRef Name="Client_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bpo_Client_Feedback_ad_Rating">
+          <End Role="ad_Rating" Type="Self.ad_Rating" Multiplicity="1" />
+          <End Role="bpo_Client_Feedback" Type="Self.bpo_Client_Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ad_Rating">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bpo_Client_Feedback">
+              <PropertyRef Name="ResponseRatingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bpo_Client_Question_Rating_Settings_ad_Rating">
+          <End Role="ad_Rating" Type="Self.ad_Rating" Multiplicity="1" />
+          <End Role="bpo_Client_Question_Rating_Settings" Type="Self.bpo_Client_Question_Rating_Settings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ad_Rating">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bpo_Client_Question_Rating_Settings">
+              <PropertyRef Name="RatingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cff_Client_Question_Rating_Settings_ad_Rating">
+          <End Role="ad_Rating" Type="Self.ad_Rating" Multiplicity="1" />
+          <End Role="cff_Client_Question_Rating_Settings" Type="Self.cff_Client_Question_Rating_Settings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ad_Rating">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cff_Client_Question_Rating_Settings">
+              <PropertyRef Name="RatingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bpo_Client_Feedback_ad_User">
+          <End Role="ad_User" Type="Self.ad_User" Multiplicity="1" />
+          <End Role="bpo_Client_Feedback" Type="Self.bpo_Client_Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ad_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="bpo_Client_Feedback">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bpo_Client_Feedback_bpo_Client_Questionaires">
+          <End Role="bpo_Client_Questionaires" Type="Self.bpo_Client_Questionaires" Multiplicity="1" />
+          <End Role="bpo_Client_Feedback" Type="Self.bpo_Client_Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bpo_Client_Questionaires">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bpo_Client_Feedback">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_bpo_Client_Question_Rating_Settings_bpo_Client_Questionaires">
+          <End Role="bpo_Client_Questionaires" Type="Self.bpo_Client_Questionaires" Multiplicity="1" />
+          <End Role="bpo_Client_Question_Rating_Settings" Type="Self.bpo_Client_Question_Rating_Settings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bpo_Client_Questionaires">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bpo_Client_Question_Rating_Settings">
+              <PropertyRef Name="Client_Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Question_Others_bpo_Client_Questionaires">
+          <End Role="bpo_Client_Questionaires" Type="Self.bpo_Client_Questionaires" Multiplicity="1" />
+          <End Role="Client_Question_Others" Type="Self.Client_Question_Others" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bpo_Client_Questionaires">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_Question_Others">
+              <PropertyRef Name="Client_Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cff_Client_Question_Rating_Settings_cff_Client_Questionnaires">
+          <End Role="cff_Client_Questionnaires" Type="Self.cff_Client_Questionnaires" Multiplicity="1" />
+          <End Role="cff_Client_Question_Rating_Settings" Type="Self.cff_Client_Question_Rating_Settings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cff_Client_Questionnaires">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cff_Client_Question_Rating_Settings">
+              <PropertyRef Name="Client_Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Question_Others_cff_Client_Questionnaires">
+          <End Role="cff_Client_Questionnaires" Type="Self.cff_Client_Questionnaires" Multiplicity="1" />
+          <End Role="Client_Question_Others" Type="Self.Client_Question_Others" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cff_Client_Questionnaires">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_Question_Others">
+              <PropertyRef Name="Client_Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="qt_Infinigent_FeedbackEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ad_Client_Type" EntityType="Self.ad_Client_Type" />
+          <EntitySet Name="ad_Rating" EntityType="Self.ad_Rating" />
+          <EntitySet Name="ad_User" EntityType="Self.ad_User" />
+          <EntitySet Name="bpo_Client_Feedback" EntityType="Self.bpo_Client_Feedback" />
+          <EntitySet Name="bpo_Client_Question_Rating_Settings" EntityType="Self.bpo_Client_Question_Rating_Settings" />
+          <EntitySet Name="bpo_Client_Questionaires" EntityType="Self.bpo_Client_Questionaires" />
+          <EntitySet Name="cff_Client_Feedback" EntityType="Self.cff_Client_Feedback" />
+          <EntitySet Name="cff_Client_Question_Rating_Settings" EntityType="Self.cff_Client_Question_Rating_Settings" />
+          <EntitySet Name="cff_Client_Questionnaires" EntityType="Self.cff_Client_Questionnaires" />
+          <EntitySet Name="Client_Question_Others" EntityType="Self.Client_Question_Others" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_ad_User_ad_Client_Type" Association="Self.FK_ad_User_ad_Client_Type">
+            <End Role="ad_Client_Type" EntitySet="ad_Client_Type" />
+            <End Role="ad_User" EntitySet="ad_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bpo_Client_Feedback_ad_Rating" Association="Self.FK_bpo_Client_Feedback_ad_Rating">
+            <End Role="ad_Rating" EntitySet="ad_Rating" />
+            <End Role="bpo_Client_Feedback" EntitySet="bpo_Client_Feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bpo_Client_Question_Rating_Settings_ad_Rating" Association="Self.FK_bpo_Client_Question_Rating_Settings_ad_Rating">
+            <End Role="ad_Rating" EntitySet="ad_Rating" />
+            <End Role="bpo_Client_Question_Rating_Settings" EntitySet="bpo_Client_Question_Rating_Settings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cff_Client_Question_Rating_Settings_ad_Rating" Association="Self.FK_cff_Client_Question_Rating_Settings_ad_Rating">
+            <End Role="ad_Rating" EntitySet="ad_Rating" />
+            <End Role="cff_Client_Question_Rating_Settings" EntitySet="cff_Client_Question_Rating_Settings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bpo_Client_Feedback_ad_User" Association="Self.FK_bpo_Client_Feedback_ad_User">
+            <End Role="ad_User" EntitySet="ad_User" />
+            <End Role="bpo_Client_Feedback" EntitySet="bpo_Client_Feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bpo_Client_Feedback_bpo_Client_Questionaires" Association="Self.FK_bpo_Client_Feedback_bpo_Client_Questionaires">
+            <End Role="bpo_Client_Questionaires" EntitySet="bpo_Client_Questionaires" />
+            <End Role="bpo_Client_Feedback" EntitySet="bpo_Client_Feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK_bpo_Client_Question_Rating_Settings_bpo_Client_Questionaires" Association="Self.FK_bpo_Client_Question_Rating_Settings_bpo_Client_Questionaires">
+            <End Role="bpo_Client_Questionaires" EntitySet="bpo_Client_Questionaires" />
+            <End Role="bpo_Client_Question_Rating_Settings" EntitySet="bpo_Client_Question_Rating_Settings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Question_Others_bpo_Client_Questionaires" Association="Self.FK_Client_Question_Others_bpo_Client_Questionaires">
+            <End Role="bpo_Client_Questionaires" EntitySet="bpo_Client_Questionaires" />
+            <End Role="Client_Question_Others" EntitySet="Client_Question_Others" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cff_Client_Question_Rating_Settings_cff_Client_Questionnaires" Association="Self.FK_cff_Client_Question_Rating_Settings_cff_Client_Questionnaires">
+            <End Role="cff_Client_Questionnaires" EntitySet="cff_Client_Questionnaires" />
+            <End Role="cff_Client_Question_Rating_Settings" EntitySet="cff_Client_Question_Rating_Settings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Question_Others_cff_Client_Questionnaires" Association="Self.FK_Client_Question_Others_cff_Client_Questionnaires">
+            <End Role="cff_Client_Questionnaires" EntitySet="cff_Client_Questionnaires" />
+            <End Role="Client_Question_Others" EntitySet="Client_Question_Others" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="qt_Infinigent_FeedbackModelStoreContainer" CdmEntityContainer="qt_Infinigent_FeedbackEntities">
+          <EntitySetMapping Name="ad_Client_Type">
+            <EntityTypeMapping TypeName="qt_Infinigent_FeedbackModel.ad_Client_Type">
+              <MappingFragment StoreEntitySet="ad_Client_Type">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ClientType" ColumnName="ClientType" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ad_Rating">
+            <EntityTypeMapping TypeName="qt_Infinigent_FeedbackModel.ad_Rating">
+              <MappingFragment StoreEntitySet="ad_Rating">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Rating_Point" ColumnName="Rating_Point" />
+                <ScalarProperty Name="Rating_Value" ColumnName="Rating_Value" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ad_User">
+            <EntityTypeMapping TypeName="qt_Infinigent_FeedbackModel.ad_User">
+              <MappingFragment StoreEntitySet="ad_User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="Client_Type_Id" ColumnName="Client_Type_Id" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bpo_Client_Feedback">
+            <EntityTypeMapping TypeName="qt_Infinigent_FeedbackModel.bpo_Client_Feedback">
+              <MappingFragment StoreEntitySet="bpo_Client_Feedback">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="ResponseRatingId" ColumnName="ResponseRatingId" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bpo_Client_Question_Rating_Settings">
+            <EntityTypeMapping TypeName="qt_Infinigent_FeedbackModel.bpo_Client_Question_Rating_Settings">
+              <MappingFragment StoreEntitySet="bpo_Client_Question_Rating_Settings">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Client_Question_Id" ColumnName="Client_Question_Id" />
+                <ScalarProperty Name="RatingId" ColumnName="RatingId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Rank" ColumnName="Rank" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bpo_Client_Questionaires">
+            <EntityTypeMapping TypeName="qt_Infinigent_FeedbackModel.bpo_Client_Questionaires">
+              <MappingFragment StoreEntitySet="bpo_Client_Questionaires">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Rank" ColumnName="Rank" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsOthers" ColumnName="IsOthers" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cff_Client_Feedback">
+            <EntityTypeMapping TypeName="qt_Infinigent_FeedbackModel.cff_Client_Feedback">
+              <MappingFragment StoreEntitySet="cff_Client_Feedback">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="ResponseRatingId" ColumnName="ResponseRatingId" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cff_Client_Question_Rating_Settings">
+            <EntityTypeMapping TypeName="qt_Infinigent_FeedbackModel.cff_Client_Question_Rating_Settings">
+              <MappingFragment StoreEntitySet="cff_Client_Question_Rating_Settings">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Client_Question_Id" ColumnName="Client_Question_Id" />
+                <ScalarProperty Name="RatingId" ColumnName="RatingId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cff_Client_Questionnaires">
+            <EntityTypeMapping TypeName="qt_Infinigent_FeedbackModel.cff_Client_Questionnaires">
+              <MappingFragment StoreEntitySet="cff_Client_Questionnaires">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="Rank" ColumnName="Rank" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsOthers" ColumnName="IsOthers" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client_Question_Others">
+            <EntityTypeMapping TypeName="qt_Infinigent_FeedbackModel.Client_Question_Others">
+              <MappingFragment StoreEntitySet="Client_Question_Others">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Client_Question_Id" ColumnName="Client_Question_Id" />
+                <ScalarProperty Name="RatingId" ColumnName="RatingId" />
+                <ScalarProperty Name="Others" ColumnName="Others" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="qt_Infinigent_FeedbackModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
