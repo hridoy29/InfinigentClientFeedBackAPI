@@ -178,6 +178,36 @@ namespace Infinigent_ClientFeednback.Controllers
             }
         }
 
+        [HttpPatch]
+        [Route("api/home/updateUserIsActive/{userId}")]
+        public IHttpActionResult UpdateUserIsActive(string userId, [FromBody] bool isActive)
+        {
+            try
+            {
+                var user = feedbackDB.ad_User.FirstOrDefault(x => x.UserId == userId);
+
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                // Convert isActive to nullable boolean (true for active, false for inactive)
+                bool? isActiveValue = isActive ? true : false;
+                user.IsActive = isActiveValue;
+
+                feedbackDB.SaveChanges();
+
+                return Ok("User IsActive updated successfully");
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+
+
+
 
 
     }
