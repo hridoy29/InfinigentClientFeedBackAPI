@@ -14,7 +14,8 @@ namespace Infinigent_ClientFeednback.Models
     public partial class sp_GetAllUsers_Result
     {
         public string UserId { get; set; }
-        public string ClientType { get; set; }
+        public int Client_Type_Id { get; set; }
+        public string UserType { get; set; }
         public Nullable<bool> IsActive { get; set; }
     }
 }

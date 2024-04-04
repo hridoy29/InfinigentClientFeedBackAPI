@@ -43,7 +43,7 @@
           <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="QuestionId" Type="int" Nullable="false" />
           <Property Name="ResponseRatingId" Type="int" Nullable="false" />
-          <Property Name="Creator" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Creator" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CreationDate" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
@@ -381,7 +381,7 @@
           <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="QuestionId" Type="Int32" Nullable="false" />
           <Property Name="ResponseRatingId" Type="Int32" Nullable="false" />
-          <Property Name="Creator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Creator" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreationDate" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="ad_Rating" Relationship="Self.FK_bpo_Client_Feedback_ad_Rating" FromRole="bpo_Client_Feedback" ToRole="ad_Rating" />
@@ -594,7 +594,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="qt_Infinigent_FeedbackEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="qt_Infinigent_FeedbackEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ad_Client_Type" EntityType="Self.ad_Client_Type" />
           <EntitySet Name="ad_Rating" EntityType="Self.ad_Rating" />
           <EntitySet Name="ad_User" EntityType="Self.ad_User" />
@@ -685,7 +685,8 @@
         </EntityContainer>
         <ComplexType Name="sp_GetAllUsers_Result">
           <Property Type="String" Name="UserId" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="ClientType" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Client_Type_Id" Nullable="false" />
+          <Property Type="String" Name="UserType" Nullable="false" MaxLength="50" />
           <Property Type="Boolean" Name="IsActive" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_GetClientFeedbackData_Result">
@@ -710,7 +711,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="qt_Infinigent_FeedbackModelStoreContainer" CdmEntityContainer="qt_Infinigent_FeedbackEntities">
+        <EntityContainerMapping StorageEntityContainer="qt_Infinigent_FeedbackModelStoreContainer" CdmEntityContainer="qt_Infinigent_FeedbackEntities1">
           <EntitySetMapping Name="ad_Client_Type">
             <EntityTypeMapping TypeName="qt_Infinigent_FeedbackModel.ad_Client_Type">
               <MappingFragment StoreEntitySet="ad_Client_Type">
@@ -846,7 +847,8 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="qt_Infinigent_FeedbackModel.sp_GetAllUsers_Result">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ClientType" ColumnName="ClientType" />
+                <ScalarProperty Name="Client_Type_Id" ColumnName="Client_Type_Id" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </ComplexTypeMapping>
             </ResultMapping>

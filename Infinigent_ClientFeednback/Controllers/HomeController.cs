@@ -11,17 +11,17 @@ namespace Infinigent_ClientFeednback.Controllers
 {
     public class HomeController : ApiController
     {
-        private qt_Infinigent_FeedbackEntities feedbackDB;
+        private qt_Infinigent_FeedbackEntities1 feedbackDB;
 
         public HomeController()
         {
-            feedbackDB = new qt_Infinigent_FeedbackEntities();
+            feedbackDB = new qt_Infinigent_FeedbackEntities1();
         }
 
 
         [HttpGet]
         [Route("api/home/getAllUsers")]
-     
+
         public IHttpActionResult GetAllUsers()
         {
             try
@@ -49,11 +49,34 @@ namespace Infinigent_ClientFeednback.Controllers
 
         [HttpGet]
         [Route("api/home/getUserByUserIdAndPassword")]
-        public IHttpActionResult GetUserByUserIdAndPassword(string userId, string password)
+        public IHttpActionResult GetUserByUserIdAndPassword(string userId, string password, string type)
         {
             try
             {
-                var user = feedbackDB.ad_User.FirstOrDefault(x => x.UserId == userId && x.UserPassword == password);
+                var userType = 1;
+                switch (type)
+                {
+                    case "bpo":
+                        userType = 2;
+                        break;
+                    case "consultancy":
+                        userType = 3;
+                        break;
+                    case "admin":
+                        userType = 1;
+                        break;
+                    default:
+                        break;
+                }
+                var user = new ad_User();
+                if (userType == 2 || userType == 3)
+                {
+                    user = feedbackDB.ad_User.FirstOrDefault(x => x.UserId == userId && x.UserPassword == password && (x.Client_Type_Id == userType || x.Client_Type_Id == 4));
+                }
+                else
+                {
+                    user = feedbackDB.ad_User.FirstOrDefault(x => x.UserId == userId && x.UserPassword == password && x.Client_Type_Id == userType);
+                }
 
                 if (user == null)
                 {
@@ -98,7 +121,7 @@ namespace Infinigent_ClientFeednback.Controllers
 
         [HttpPost]
         [Route("api/home/createCFFClientFeedback")]
-        public IHttpActionResult CreateCFFClientFeedback(cff_Client_FeedbackDTO newFeedback)
+        public IHttpActionResult CreateCFFClientFeedback(List<cff_Client_FeedbackDTO> newFeedback)
         {
             if (!ModelState.IsValid)
             {
@@ -107,16 +130,20 @@ namespace Infinigent_ClientFeednback.Controllers
 
             try
             {
-                feedbackDB.cff_Client_Feedback.Add(new cff_Client_Feedback()
+                foreach (var item in newFeedback)
                 {
-                    QuestionId = newFeedback.QuestionId,
-                    ResponseRatingId = newFeedback.ResponseRatingId,
-                    UserId = newFeedback.UserId,
-                    IsActive = true,
-                    CreationDate = DateTime.Now,
-                    Creator = newFeedback.Creator
-                });
-                feedbackDB.SaveChanges();
+                    feedbackDB.cff_Client_Feedback.Add(new cff_Client_Feedback()
+                    {
+                        QuestionId = item.QuestionId,
+                        ResponseRatingId = item.ResponseRatingId,
+                        UserId = item.UserId,
+                        IsActive = true,
+                        CreationDate = DateTime.Now,
+                        Creator = item.Creator
+                    });
+                    feedbackDB.SaveChanges();
+                }
+
                 return Ok();
             }
             catch (Exception ex)
@@ -125,29 +152,29 @@ namespace Infinigent_ClientFeednback.Controllers
             }
         }
 
-       
-      
+
+
         [HttpPost]
         [Route("api/home/createBPOClientFeedback")]
-        public IHttpActionResult CreateBPOClientFeedback(bpo_Client_FeedbackDTO newFeedback)
+        public IHttpActionResult CreateBPOClientFeedback(List<bpo_Client_FeedbackDTO> newFeedback)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
             try
             {
-                feedbackDB.bpo_Client_Feedback.Add(new bpo_Client_Feedback()
+                foreach (var item in newFeedback)
                 {
-                    QuestionId = newFeedback.QuestionId,
-                    ResponseRatingId = newFeedback.ResponseRatingId,
-                    UserId = newFeedback.UserId,
-                    IsActive = true,
-                    CreationDate = DateTime.Now,
-                    Creator = newFeedback.Creator
-                });
-                feedbackDB.SaveChanges();
+                    feedbackDB.bpo_Client_Feedback.Add(new bpo_Client_Feedback()
+                    {
+                        QuestionId = item.QuestionId,
+                        ResponseRatingId = item.ResponseRatingId,
+                        UserId = item.UserId,
+                        IsActive = true,
+                        CreationDate = DateTime.Now,
+                        Creator = item.Creator
+                    });
+                    feedbackDB.SaveChanges();
+                }
+                
                 return Ok();
             }
             catch (Exception ex)
