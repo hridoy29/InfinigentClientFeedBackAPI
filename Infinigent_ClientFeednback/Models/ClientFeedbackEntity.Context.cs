@@ -16,10 +16,10 @@ namespace Infinigent_ClientFeednback.Models
     using System.Data.Objects.DataClasses;
     using System.Linq;
     
-    public partial class qt_Infinigent_FeedbackEntities : DbContext
+    public partial class qt_Infinigent_FeedbackEntities1 : DbContext
     {
-        public qt_Infinigent_FeedbackEntities()
-            : base("name=qt_Infinigent_FeedbackEntities")
+        public qt_Infinigent_FeedbackEntities1()
+            : base("name=qt_Infinigent_FeedbackEntities1")
         {
         }
     
