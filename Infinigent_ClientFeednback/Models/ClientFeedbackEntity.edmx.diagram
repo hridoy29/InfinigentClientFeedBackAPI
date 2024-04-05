@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="008e7a5cfc2f444c982be9cd603ebe77" Name="Diagram1">
+      <Diagram DiagramId="008e7a5cfc2f444c982be9cd603ebe77" Name="Diagram1" ZoomLevel="61">
         <EntityTypeShape EntityType="qt_Infinigent_FeedbackModel.ad_Client_Type" Width="1.5" PointX="1.5" PointY="16.5" IsExpanded="true" />
         <EntityTypeShape EntityType="qt_Infinigent_FeedbackModel.ad_Rating" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="qt_Infinigent_FeedbackModel.ad_User" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
