@@ -11,11 +11,11 @@ namespace Infinigent_ClientFeednback.Controllers
 {
     public class HomeController : ApiController
     {
-        private qt_Infinigent_FeedbackEntities feedbackDB;
+        private qt_Infinigent_FeedbackEntities1 feedbackDB;
 
         public HomeController()
         {
-            feedbackDB = new qt_Infinigent_FeedbackEntities();
+            feedbackDB = new qt_Infinigent_FeedbackEntities1();
         }
 
 
@@ -27,6 +27,8 @@ namespace Infinigent_ClientFeednback.Controllers
             try
             {
                 var users = feedbackDB.Database.SqlQuery<ad_getAllUserWithType>("EXEC sp_GetAllUsers").ToList();
+
+                //var u= feedbackDB.sp_GetAllUsers().ToList();
 
                 if (users == null || !users.Any())
                 {

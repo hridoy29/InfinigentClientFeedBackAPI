@@ -78,7 +78,7 @@
           <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="QuestionId" Type="int" Nullable="false" />
           <Property Name="ResponseRatingId" Type="int" Nullable="false" />
-          <Property Name="Creator" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Creator" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CreationDate" Type="date" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="OthersValue" Type="varchar(max)" />
@@ -426,7 +426,7 @@
           <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="QuestionId" Type="Int32" Nullable="false" />
           <Property Name="ResponseRatingId" Type="Int32" Nullable="false" />
-          <Property Name="Creator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Creator" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreationDate" Type="DateTime" Precision="0" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="OthersValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -598,7 +598,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="qt_Infinigent_FeedbackEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="qt_Infinigent_FeedbackEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ad_Client_Type" EntityType="Self.ad_Client_Type" />
           <EntitySet Name="ad_Rating" EntityType="Self.ad_Rating" />
           <EntitySet Name="ad_User" EntityType="Self.ad_User" />
@@ -715,7 +715,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="qt_Infinigent_FeedbackModelStoreContainer" CdmEntityContainer="qt_Infinigent_FeedbackEntities">
+        <EntityContainerMapping StorageEntityContainer="qt_Infinigent_FeedbackModelStoreContainer" CdmEntityContainer="qt_Infinigent_FeedbackEntities1">
           <EntitySetMapping Name="ad_Client_Type">
             <EntityTypeMapping TypeName="qt_Infinigent_FeedbackModel.ad_Client_Type">
               <MappingFragment StoreEntitySet="ad_Client_Type">
