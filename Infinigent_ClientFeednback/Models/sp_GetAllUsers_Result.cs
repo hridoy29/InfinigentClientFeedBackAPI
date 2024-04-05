@@ -16,6 +16,6 @@ namespace Infinigent_ClientFeednback.Models
         public string UserId { get; set; }
         public int Client_Type_Id { get; set; }
         public string UserType { get; set; }
-        public Nullable<bool> IsActive { get; set; }
+        public Nullable<bool> CurrentStatus { get; set; }
     }
 }

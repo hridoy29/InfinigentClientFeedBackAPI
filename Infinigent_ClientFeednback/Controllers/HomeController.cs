@@ -11,11 +11,11 @@ namespace Infinigent_ClientFeednback.Controllers
 {
     public class HomeController : ApiController
     {
-        private qt_Infinigent_FeedbackEntities1 feedbackDB;
+        private qt_Infinigent_FeedbackEntities feedbackDB;
 
         public HomeController()
         {
-            feedbackDB = new qt_Infinigent_FeedbackEntities1();
+            feedbackDB = new qt_Infinigent_FeedbackEntities();
         }
 
 
@@ -26,25 +26,51 @@ namespace Infinigent_ClientFeednback.Controllers
         {
             try
             {
-                var user = feedbackDB.ad_User.ToList();
+                var users = feedbackDB.Database.SqlQuery<ad_getAllUserWithType>("EXEC sp_GetAllUsers").ToList();
 
-                if (user == null)
+                if (users == null || !users.Any())
                 {
                     return NotFound();
                 }
-                List<ad_UserDTO> userlist = new List<ad_UserDTO>();
-                foreach (var item in user)
-                {
-                    userlist.Add(UserMapper.MapAd_UserToAd_UserDTO(item));
-                }
 
-                return Ok(userlist);
+                return Ok(users);
             }
             catch (Exception ex)
             {
                 return InternalServerError(ex);
             }
+
+
         }
+
+
+        //[HttpGet]
+        //[Route("api/home/getAllUsers")]
+        //public IHttpActionResult GetAllUsers(int page = 1, int pageSize = 10)
+        //{
+        //    try
+        //    {
+        //        var skipCount = (page - 1) * pageSize;
+        //        var users = feedbackDB.ad_User
+        //            .OrderBy(u => u.UserId) 
+        //            .Skip(skipCount)
+        //            .Take(pageSize)
+        //            .ToList();
+
+        //        if (users == null || users.Count == 0)
+        //        {
+        //            return NotFound();
+        //        }
+
+        //        var userlist = users.Select(item => UserMapper.MapAd_UserToAd_UserDTO(item)).ToList();
+        //        return Ok(userlist);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return InternalServerError(ex);
+        //    }
+        //}
+
 
 
         [HttpGet]
@@ -139,7 +165,8 @@ namespace Infinigent_ClientFeednback.Controllers
                         UserId = item.UserId,
                         IsActive = true,
                         CreationDate = DateTime.Now,
-                        Creator = item.Creator
+                        Creator = item.Creator,
+                        OthersValue=item.OthersValue
                     });
                     feedbackDB.SaveChanges();
                 }
@@ -170,7 +197,8 @@ namespace Infinigent_ClientFeednback.Controllers
                         UserId = item.UserId,
                         IsActive = true,
                         CreationDate = DateTime.Now,
-                        Creator = item.Creator
+                        Creator = item.Creator,
+                        OthersValue = item.OthersValue
                     });
                     feedbackDB.SaveChanges();
                 }

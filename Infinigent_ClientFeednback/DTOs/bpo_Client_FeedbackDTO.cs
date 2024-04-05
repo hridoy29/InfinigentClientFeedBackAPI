@@ -14,5 +14,6 @@ namespace Infinigent_ClientFeednback.DTOs
         public string Creator { get; set; }
         public DateTime CreationDate { get; set; }
         public bool IsActive { get; set; }
+        public string OthersValue { get; set; }
     }
 }

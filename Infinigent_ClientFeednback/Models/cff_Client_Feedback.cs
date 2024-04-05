@@ -21,5 +21,6 @@ namespace Infinigent_ClientFeednback.Models
         public string Creator { get; set; }
         public Nullable<System.DateTime> CreationDate { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public string OthersValue { get; set; }
     }
 }

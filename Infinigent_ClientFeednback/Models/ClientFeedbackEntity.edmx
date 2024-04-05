@@ -46,6 +46,7 @@
           <Property Name="Creator" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CreationDate" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="OthersValue" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="bpo_Client_Question_Rating_Settings">
           <Key>
@@ -80,6 +81,7 @@
           <Property Name="Creator" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="CreationDate" Type="date" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="OthersValue" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="cff_Client_Question_Rating_Settings">
           <Key>
@@ -384,6 +386,7 @@
           <Property Name="Creator" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreationDate" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
+          <Property Name="OthersValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ad_Rating" Relationship="Self.FK_bpo_Client_Feedback_ad_Rating" FromRole="bpo_Client_Feedback" ToRole="ad_Rating" />
           <NavigationProperty Name="ad_User" Relationship="Self.FK_bpo_Client_Feedback_ad_User" FromRole="bpo_Client_Feedback" ToRole="ad_User" />
           <NavigationProperty Name="bpo_Client_Questionaires" Relationship="Self.FK_bpo_Client_Feedback_bpo_Client_Questionaires" FromRole="bpo_Client_Feedback" ToRole="bpo_Client_Questionaires" />
@@ -426,6 +429,7 @@
           <Property Name="Creator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreationDate" Type="DateTime" Precision="0" />
           <Property Name="IsActive" Type="Boolean" />
+          <Property Name="OthersValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="cff_Client_Question_Rating_Settings">
           <Key>
@@ -594,7 +598,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="qt_Infinigent_FeedbackEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="qt_Infinigent_FeedbackEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ad_Client_Type" EntityType="Self.ad_Client_Type" />
           <EntitySet Name="ad_Rating" EntityType="Self.ad_Rating" />
           <EntitySet Name="ad_User" EntityType="Self.ad_User" />
@@ -687,7 +691,7 @@
           <Property Type="String" Name="UserId" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="Client_Type_Id" Nullable="false" />
           <Property Type="String" Name="UserType" Nullable="false" MaxLength="50" />
-          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+          <Property Type="Boolean" Name="CurrentStatus" Nullable="true" />
         </ComplexType>
         <ComplexType Name="sp_GetClientFeedbackData_Result">
           <Property Type="String" Name="UserId" Nullable="false" MaxLength="50" />
@@ -711,7 +715,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="qt_Infinigent_FeedbackModelStoreContainer" CdmEntityContainer="qt_Infinigent_FeedbackEntities1">
+        <EntityContainerMapping StorageEntityContainer="qt_Infinigent_FeedbackModelStoreContainer" CdmEntityContainer="qt_Infinigent_FeedbackEntities">
           <EntitySetMapping Name="ad_Client_Type">
             <EntityTypeMapping TypeName="qt_Infinigent_FeedbackModel.ad_Client_Type">
               <MappingFragment StoreEntitySet="ad_Client_Type">
@@ -755,6 +759,7 @@
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
                 <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="OthersValue" ColumnName="OthersValue" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -792,6 +797,7 @@
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
                 <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="OthersValue" ColumnName="OthersValue" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -849,7 +855,7 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Client_Type_Id" ColumnName="Client_Type_Id" />
                 <ScalarProperty Name="UserType" ColumnName="UserType" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CurrentStatus" ColumnName="CurrentStatus" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
