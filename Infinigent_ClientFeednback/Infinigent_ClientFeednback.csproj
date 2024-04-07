@@ -184,6 +184,7 @@
     <Compile Include="DTOs\cff_Client_FeedbackDTO.cs" />
     <Compile Include="DTOs\cff_Client_QuestionairesDTO.cs" />
     <Compile Include="DTOs\ClientFeedBackDataDTO.cs" />
+    <Compile Include="DTOs\GetDataView.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

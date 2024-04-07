@@ -213,18 +213,18 @@ namespace Infinigent_ClientFeednback.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("api/home/ClientFeedback/{fromDate}/{toDate}/{formType}")]
+        [HttpPost]
+        [Route("api/home/ClientFeedback")]
 
-        public IHttpActionResult GetClientFeedback(DateTime fromDate, DateTime toDate, int formType)
+        public IHttpActionResult GetClientFeedback(GetDataView getDataView)
         {
             try
             {
 
                 var feedbackList = feedbackDB.Database.SqlQuery<ClientFeedBackDataDTO>("EXEC sp_GetClientFeedbackData @FromDate, @ToDate, @FormType",
-                    new SqlParameter("FromDate", fromDate),
-                    new SqlParameter("ToDate", toDate),
-                    new SqlParameter("FormType", formType)
+                    new SqlParameter("FromDate", getDataView.fromDate),
+                    new SqlParameter("ToDate", getDataView.toDate),
+                    new SqlParameter("FormType", getDataView.type)
                 ).ToList();
 
                 return Ok(feedbackList);
@@ -236,21 +236,18 @@ namespace Infinigent_ClientFeednback.Controllers
         }
 
         [HttpPatch]
-        [Route("api/home/updateUserIsActive/{userId}")]
-        public IHttpActionResult UpdateUserIsActive(string userId, [FromBody] bool isActive)
+        [Route("api/home/updateUserIsActive")]
+        public IHttpActionResult UpdateUserIsActive([FromBody] ad_UserDTO newUser)
         {
             try
             {
-                var user = feedbackDB.ad_User.FirstOrDefault(x => x.UserId == userId);
+                var user = feedbackDB.ad_User.FirstOrDefault(x => x.UserId == newUser.UserId);
 
                 if (user == null)
                 {
                     return NotFound();
                 }
-
-                // Convert isActive to nullable boolean (true for active, false for inactive)
-                bool? isActiveValue = isActive ? true : false;
-                user.IsActive = isActiveValue;
+                user.IsActive = newUser.IsActive;
 
                 feedbackDB.SaveChanges();
 
