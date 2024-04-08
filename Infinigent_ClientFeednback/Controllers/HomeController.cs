@@ -110,7 +110,10 @@ namespace Infinigent_ClientFeednback.Controllers
                 {
                     return NotFound();
                 }
-
+                if (!(bool)user.IsActive)
+                {
+                    return Unauthorized();
+                }
                 return Ok(UserMapper.MapAd_UserToAd_UserDTO(user));
             }
             catch (Exception ex)
