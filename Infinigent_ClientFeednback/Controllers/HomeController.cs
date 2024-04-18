@@ -252,17 +252,20 @@ namespace Infinigent_ClientFeednback.Controllers
                     new SqlParameter("FormType", getDataView.type)
                 ).ToList();
 
-                foreach (var item in feedbackList.GroupBy(x => x.UserID).ToList())
+
+                foreach (var item in feedbackList.GroupBy(x => new { x.UserID, Date = x.CreationDate.Date, Hour = x.CreationDate.Hour }).ToList())
                 {
-                    var i = item;
                     ClientFeedBackParentDTO clientFeedBackParentDTO = new ClientFeedBackParentDTO();
 
-                    clientFeedBackParentDTO.UserID= item.FirstOrDefault().UserID;   
-                    clientFeedBackParentDTO.Date= item.FirstOrDefault().Date;
+                    clientFeedBackParentDTO.UserID = item.Key.UserID;
+                    clientFeedBackParentDTO.Date = item.FirstOrDefault().CreationDate;
+
                     clientFeedBackParentDTO.questions = item.ToList();
+
                     clientFeedBackParentDTOs.Add(clientFeedBackParentDTO);
                 }
-                return Ok(clientFeedBackParentDTOs);
+
+                return Ok(clientFeedBackParentDTOs.OrderByDescending(x=>x.Date).ToList());
             }
             catch (Exception ex)
             {

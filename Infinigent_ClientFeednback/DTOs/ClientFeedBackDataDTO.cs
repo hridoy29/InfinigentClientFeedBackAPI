@@ -11,6 +11,6 @@ namespace Infinigent_ClientFeednback.DTOs
         public string Question { get; set; }
         public string Rating_Value { get; set; }
         public string OthersValue { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime CreationDate { get; set; }
     }
 }
