@@ -238,6 +238,38 @@ namespace Infinigent_ClientFeednback.Controllers
             }
         }
 
+        //[HttpPost]
+        //[Route("api/home/GetAllFeedBack")]
+
+        //public IHttpActionResult GetAllFeedBack(GetDataView getDataView)
+        //{
+        //    try
+        //    {
+        //        List<ClientFeedBackParentDTO> clientFeedBackParentDTOs = new List<ClientFeedBackParentDTO>();
+        //        var feedbackList = feedbackDB.Database.SqlQuery<ClientFeedBackDataDTO>("EXEC sp_GetClientFeedbackData @FromDate, @ToDate, @FormType",
+        //            new SqlParameter("FromDate", getDataView.fromDate),
+        //            new SqlParameter("ToDate", getDataView.toDate),
+        //            new SqlParameter("FormType", getDataView.type)
+        //        ).ToList();
+
+        //        foreach (var item in feedbackList.GroupBy(x => x.UserID).ToList())
+        //        {
+        //            var i = item;
+        //            ClientFeedBackParentDTO clientFeedBackParentDTO = new ClientFeedBackParentDTO();
+
+        //            clientFeedBackParentDTO.UserID= item.FirstOrDefault().UserID;   
+        //            clientFeedBackParentDTO.Date= item.FirstOrDefault().Date;
+        //            clientFeedBackParentDTO.questions = item.ToList();
+        //            clientFeedBackParentDTOs.Add(clientFeedBackParentDTO);
+        //        }
+        //        return Ok(clientFeedBackParentDTOs);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return InternalServerError(ex);
+        //    }
+        //}
+
         [HttpPost]
         [Route("api/home/GetAllFeedBack")]
 
@@ -246,6 +278,8 @@ namespace Infinigent_ClientFeednback.Controllers
             try
             {
                 List<ClientFeedBackParentDTO> clientFeedBackParentDTOs = new List<ClientFeedBackParentDTO>();
+
+               
                 var feedbackList = feedbackDB.Database.SqlQuery<ClientFeedBackDataDTO>("EXEC sp_GetClientFeedbackData @FromDate, @ToDate, @FormType",
                     new SqlParameter("FromDate", getDataView.fromDate),
                     new SqlParameter("ToDate", getDataView.toDate),
@@ -262,6 +296,11 @@ namespace Infinigent_ClientFeednback.Controllers
 
                     clientFeedBackParentDTO.questions = item.ToList();
 
+                    // Calculate the sum of Rating_Value for each group
+                    int sum = item.Sum(x => x.point);
+                    clientFeedBackParentDTO.Sum = sum;
+
+
                     clientFeedBackParentDTOs.Add(clientFeedBackParentDTO);
                 }
 
@@ -269,9 +308,11 @@ namespace Infinigent_ClientFeednback.Controllers
             }
             catch (Exception ex)
             {
+               
                 return InternalServerError(ex);
             }
         }
+
 
         [HttpPatch]
         [Route("api/home/updateUserIsActive")]
