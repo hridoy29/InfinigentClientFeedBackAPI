@@ -9,6 +9,7 @@ namespace Infinigent_ClientFeednback.DTOs
     {
         public string UserID { get; set; }
         public DateTime Date { get; set; }
+        public int  Sum { get; set; }
         public List<ClientFeedBackDataDTO> questions { get; set; }
     }
 }
